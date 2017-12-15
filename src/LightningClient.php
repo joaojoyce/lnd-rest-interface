@@ -43,10 +43,37 @@ class LightningClient
         return json_decode($res->getBody(),true);
     }
 
+    public function getPendingChannels() {
+        $client = new Client($this->http_config);
+
+        $res = $client->request('GET', '/v1/channels/pending');
+        return json_decode($res->getBody(),true);
+    }
+
     public function getTransactions() {
         $client = new Client($this->http_config);
 
         $res = $client->request('GET', '/v1/transactions');
+        return json_decode($res->getBody(),true);
+    }
+
+    public function getPeers() {
+        $client = new Client($this->http_config);
+
+        $res = $client->request('GET', '/v1/peers');
+        return json_decode($res->getBody(),true);
+    }
+
+    public function getInvoices($pending_only = false) {
+
+        if($pending_only) {
+            $pending_only = 1;
+        } else {
+            $pending_only = 0;
+        }
+
+        $client = new Client($this->http_config);
+        $res = $client->request('GET', '/v1/invoices/' . $pending_only);
         return json_decode($res->getBody(),true);
     }
 
