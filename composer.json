@@ -1,0 +1,14 @@
+{
+  "name": "joaojoyce/lnd-rest-interface",
+  "autoload": {
+    "psr-0" : {
+      "JoaoJoyce\\LndRestInterface" : "src"
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/joaojoyce/lnd-rest-interface"
+    }
+  ]
+}
