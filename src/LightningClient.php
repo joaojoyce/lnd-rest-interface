@@ -26,7 +26,29 @@ class LightningClient
 
         $res = $client->request('GET', '/v1/getinfo');
         return json_decode($res->getBody(),true);
-
     }
+
+
+    public function getWalletBalance() {
+        $client = new Client($this->http_config);
+
+        $res = $client->request('GET', '/v1/balance/blockchain');
+        return json_decode($res->getBody(),true);
+    }
+
+    public function getChannelBalance() {
+        $client = new Client($this->http_config);
+
+        $res = $client->request('GET', '/v1/balance/channels');
+        return json_decode($res->getBody(),true);
+    }
+
+    public function getTransactions() {
+        $client = new Client($this->http_config);
+
+        $res = $client->request('GET', '/v1/transactions');
+        return json_decode($res->getBody(),true);
+    }
+
 
 }
