@@ -10,5 +10,8 @@
       "type": "vcs",
       "url": "https://github.com/joaojoyce/lnd-rest-interface"
     }
-  ]
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "~6.0"
+  }
 }
