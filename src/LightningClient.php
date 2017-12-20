@@ -77,5 +77,38 @@ class LightningClient
         return json_decode($res->getBody(),true);
     }
 
+    public function payinvoice($invoice) {
+        $client = new Client($this->http_config);
+        $res = $client->request('GET', '/v1/payreq/' . $invoice);
+        return json_decode($res->getBody(),true);
+
+    }
+
+    public function sendpayment($destination,$payment_hash,$amount) {
+        $client = new Client($this->http_config);
+        $res = $client->request('POST', '/v1/channels/transactions',[
+                'json' => [
+                    'amt' => $amount,
+                    'dest_string' => $destination,
+                    'payment_hash_string' => $payment_hash
+                ]
+        ]);
+        return json_decode($res->getBody(),true);
+
+    }
+
+    public function addinvoice($value) {
+
+        $client = new Client($this->http_config);
+        $res = $client->request('POST', '/v1/invoices',[
+            'json' => [
+                'value' => $value,
+                //'r_preimage' => bin2hex(openssl_random_pseudo_bytes(32))
+            ]
+        ]);
+        return json_decode($res->getBody(),true);
+
+    }
+
 
 }
