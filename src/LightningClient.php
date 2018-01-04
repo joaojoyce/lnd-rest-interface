@@ -77,16 +77,38 @@ class LightningClient
         return json_decode($res->getBody(),true);
     }
 
-    public function createInvoice($memo,$value,$exp_sec) {
+    public function payinvoice($invoice) {
         $client = new Client($this->http_config);
-        $res = $client->request('POST', '/v1/addinvoice',[
-            'body' => [
+        $res = $client->request('GET', '/v1/payreq/' . $invoice);
+        return json_decode($res->getBody(),true);
+
+    }
+
+    public function sendpayment($destination,$payment_hash,$amount) {
+        $client = new Client($this->http_config);
+        $res = $client->request('POST', '/v1/channels/transactions',[
+                'json' => [
+                    'amt' => $amount,
+                    'dest_string' => $destination,
+                    'payment_hash_string' => $payment_hash
+                ]
+        ]);
+        return json_decode($res->getBody(),true);
+
+    }
+
+    public function addinvoice($value,$memo='',$expiry=3600) {
+
+        $client = new Client($this->http_config);
+        $res = $client->request('POST', '/v1/invoices',[
+            'json' => [
+                'value' => $value,
                 'memo'=> $memo,
-                'value'=> $value,
-                'expiry'=> $exp_sec
+                'expiry'=> $expiry
             ]
         ]);
         return json_decode($res->getBody(),true);
+
     }
 
 
