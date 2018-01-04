@@ -77,5 +77,17 @@ class LightningClient
         return json_decode($res->getBody(),true);
     }
 
+    public function createInvoice($memo,$value,$exp_sec) {
+        $client = new Client($this->http_config);
+        $res = $client->request('POST', '/v1/addinvoice',[
+            'body' => [
+                'memo'=> $memo,
+                'value'=> $value,
+                'expiry'=> $exp_sec
+            ]
+        ]);
+        return json_decode($res->getBody(),true);
+    }
+
 
 }
